@@ -2,7 +2,7 @@
 % Please edit documentation in R/adaptor-BiocBPRPContainer.R
 \name{registerParallelBackend,BiocBPRPContainer-method}
 \alias{registerParallelBackend,BiocBPRPContainer-method}
-\title{Register the foreach doRedis backend}
+\title{Register the BiocParallel RedisParam backend}
 \usage{
 \S4method{registerParallelBackend}{BiocBPRPContainer}(container, cluster, verbose = FALSE, ...)
 }
@@ -13,12 +13,12 @@
 
 \item{verbose}{Integer. The verbose level, default 1.}
 
-\item{...}{The additional parameter that will be passed to \code{doRedis::registerDoRedis}}
+\item{...}{The additional parameter that will be passed to \code{RedisParam::RedisParam}}
 }
 \value{
 No return value
 }
 \description{
-Register the foreach doRedis backend. The registration will be done via
-\code{doRedis::registerDoRedis}
+Register the BiocParallel RedisParam backend. The registration will be done via
+\code{RedisParam::RedisParam}
 }

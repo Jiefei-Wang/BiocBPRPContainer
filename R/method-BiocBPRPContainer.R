@@ -66,7 +66,7 @@ BiocBPRPWorkerContainer <- function(RPackages = NULL,
 
 .BiocBPRPContainer$methods(
   show = function(){
-    cat("Bioconductor foreach redis container reference object\n")
+    cat("Bioconductor BiocParallel redis container reference object\n")
     cat("  Image:     ", .self$image, "\n")
     cat("  maxWorkers:", .self$maxWorkerNum, "\n")
     if(!is.null(.self$RPackages)){

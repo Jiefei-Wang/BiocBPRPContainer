@@ -1,4 +1,4 @@
-#' @import doRedis
+#' @import RedisParam
 #' @import DockerParallel
 #' @import methods
 #' @import utils

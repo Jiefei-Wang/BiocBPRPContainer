@@ -22,7 +22,7 @@ setMethod("configServerContainerEnv", "BiocBPRPContainer",
 
               stopifnot(!is.null(serverPort))
               if(is.null(serverPassword)){
-                    stop("The server must be password protected!")
+                  stop("The server must be password protected!")
               }
               container$environment <- combineList(
                   container$environment,
@@ -80,13 +80,13 @@ setMethod("configWorkerContainerEnv", "BiocBPRPContainer",
           })
 
 
-#' Register the foreach doRedis backend
+#' Register the BiocParallel RedisParam backend
 #'
-#' Register the foreach doRedis backend. The registration will be done via
-#' `doRedis::registerDoRedis`
+#' Register the BiocParallel RedisParam backend. The registration will be done via
+#' `RedisParam::RedisParam`
 #'
 #' @inheritParams DockerParallel::registerParallelBackend
-#' @param ... The additional parameter that will be passed to `doRedis::registerDoRedis`
+#' @param ... The additional parameter that will be passed to `RedisParam::RedisParam`
 #' @return No return value
 #' @export
 setMethod("registerParallelBackend", "BiocBPRPContainer",
@@ -104,17 +104,34 @@ setMethod("registerParallelBackend", "BiocBPRPContainer",
                   stop("Fail to find the server Ip")
               }
               stopifnot(!is.null(serverPort))
-              p <- RedisParam(jobname = queue,
-                              mamanger.host = serverClientIP,
-                              manager.port = serverPort,
-                              manager.password = password, is.worker = FALSE)
+              p <- RedisParam::RedisParam(jobname = queue,
+                                          manager.hostname = serverClientIP,
+                                          manager.port = serverPort,
+                                          manager.password = password, is.worker = FALSE, ...)
               BiocParallel::register(p)
               invisible(NULL)
           })
 
-#' Get the Bioconductor foreach Redis container
+#' Deregister the BiocParallel RedisParam backend
 #'
-#' Get the Bioconductor foreach Redis container from the worker container
+#' Deregister the BiocParallel RedisParam backend. The `BiocParallel::SerialParam()` will
+#' be registered
+#'
+#' @inheritParams DockerParallel::deregisterParallelBackend
+#' @param ... Not used
+#' @return No return value
+#' @export
+setMethod("deregisterParallelBackend", "BiocBPRPContainer",
+          function(container, cluster, verbose = FALSE, ...){
+              BiocParallel::register(BiocParallel::SerialParam())
+              invisible(NULL)
+          })
+
+
+
+#' Get the Bioconductor BiocParallel Redis container
+#'
+#' Get the Bioconductor BiocParallel Redis container from the worker container
 #'
 #' @inheritParams DockerParallel::getServerContainer
 #' @return A `BiocBPRPContainer` server container
@@ -168,7 +185,7 @@ setMethod("getExportedNames", "BiocBPRPContainer",
 setMethod("getExportedObject", "BiocBPRPContainer",
           function(x, name){
               if(x$name != "redisRWorkerContainer"){
-                return(NULL)
+                  return(NULL)
               }
               if(!name%in%containerExportedMethods)
                   return(NULL)

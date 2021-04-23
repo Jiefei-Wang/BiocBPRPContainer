@@ -1,4 +1,4 @@
 library(testthat)
-library(BiocFEDRContainer)
+library(BiocBPRPContainer)
 
-test_check("BiocFEDRContainer")
+test_check("BiocBPRPContainer")

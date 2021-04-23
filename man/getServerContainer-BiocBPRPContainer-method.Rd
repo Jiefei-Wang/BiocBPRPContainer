@@ -2,7 +2,7 @@
 % Please edit documentation in R/adaptor-BiocBPRPContainer.R
 \name{getServerContainer,BiocBPRPContainer-method}
 \alias{getServerContainer,BiocBPRPContainer-method}
-\title{Get the Bioconductor foreach Redis container}
+\title{Get the Bioconductor BiocParallel Redis container}
 \usage{
 \S4method{getServerContainer}{BiocBPRPContainer}(workerContainer)
 }
@@ -13,5 +13,5 @@
 A \code{BiocBPRPContainer} server container
 }
 \description{
-Get the Bioconductor foreach Redis container from the worker container
+Get the Bioconductor BiocParallel Redis container from the worker container
 }

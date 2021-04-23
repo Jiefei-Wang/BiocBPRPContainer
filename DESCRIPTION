@@ -1,4 +1,4 @@
-Package: BiocFEDRContainer
+Package: BiocBPRPContainer
 Title: The Bioconductor container with BiocParallel RedisParam backend for the DockerParallel package
 Version: 0.99.0
 Authors@R: 
