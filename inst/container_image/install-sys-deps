@@ -1,0 +1,7 @@
+#!/bin/bash
+if test -n "${sysPackages-}"; then
+  echo "The packages ${sysPackages} will be installed"
+  sysPackages="$(echo $sysPackages|tr ',' ' ')"
+  apt-get update
+  apt-get install -y ${sysPackages}
+fi

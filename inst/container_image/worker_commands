@@ -1,0 +1,13 @@
+#!/bin/bash
+
+## install the system packages if required
+bash install-sys-deps 2>&1 | tee ./log
+
+## install the R packages if required
+Rscript install-R-deps.R 2>&1 | tee ./log -a
+
+## Run ssh server
+bash ./start_sshd 2>&1 | tee ./log -a
+
+## Run R workers
+bash ./start_workers 2>&1 | tee ./log -a

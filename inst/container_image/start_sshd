@@ -1,0 +1,22 @@
+#!/bin/bash
+## Check whether a package is installed
+installed() {
+    return $(dpkg-query -W -f '${Status}\n' "${1}" 2>&1|awk '/ok installed/{print 0;exit}{print 1}')
+}
+
+## Add the public key if exists
+mkdir ~/.ssh
+
+if $(installed openssh-server) ; then
+    if test -n "${sshPubKey-}"; then
+      echo "Public key is found"
+      echo ${sshPubKey}>> ~/.ssh/authorized_keys
+      service ssh start
+      echo "SSH server started"
+    else
+      echo "Public key is not found"
+      echo "SSH server will not be started"
+    fi
+else
+    echo "SSH server is not installed"
+fi
