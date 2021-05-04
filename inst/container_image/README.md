@@ -13,19 +13,19 @@ The doRedis worker image accepts the following environment variable on startup:
 
 To build
 ```
-docker build -t redis_param_image .
+docker build -t bioc_redis_param_worker_image . -f Dockerfile_RELEASE_3_12
 ```
 To run the worker container
 ```
-docker run -it --env queueName=jobs --env serverPassword=123456 --env workerNum=2 redis_param_image 
+docker run -it --env queueName=jobs --env serverPassword=123456 --env workerNum=2 bioc_redis_param_worker_image 
 ```
 To run the worker container and also install the R package `BiocParallel`
 ```
-docker run -it --env queueName=jobs --env serverPassword=123456 --env workerNum=2 --env RPackages=BiocParallel redis_param_image 
+docker run -it --env queueName=jobs --env serverPassword=123456 --env workerNum=2 --env RPackages=BiocParallel bioc_redis_param_worker_image 
 ```
 
 ## Note
 If you want to test the server and the worker on the same machine, you have to set the network mode to "host" to allow the communication between the server and worker. For example
 ```
-docker run -it --env queueName=jobs --env serverIp=localhost --env serverPort=6666 --env serverPassword=123456 --env workerNum=2 --network="host" redis_param_image
+docker run -it --env queueName=jobs --env serverIp=localhost --env serverPort=6666 --env serverPassword=123456 --env workerNum=2 --network="host" bioc_redis_param_worker_image
 ```
